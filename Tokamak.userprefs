@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{8B83C462-1DD3-44D8-86AA-B64DA3034B6D}|Unit Tests">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TokamakTests/Test.fs">
+    <Files>
+      <File FileName="Tokamak/Component1.fs" Line="6" Column="5" />
+      <File FileName="Tokamak/Tokamak.fs" Line="11" Column="1" />
+      <File FileName="TokamakTests/Test.fs" Line="181" Column="30" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.TokamakTests PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

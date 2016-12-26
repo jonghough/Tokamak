@@ -1,0 +1,10 @@
+/Users/jp20151/Projects/Tokamak/TokamakTests/obj/Debug/.NETFramework,Version=v4.5.1.AssemblyAttribute.fs
+/Users/jp20151/Projects/Tokamak/TokamakTests/bin/Debug/nunit.framework.dll
+/Users/jp20151/Projects/Tokamak/TokamakTests/bin/Debug/Tokamak.dll
+/Users/jp20151/Projects/Tokamak/TokamakTests/bin/Debug/Tokamak.dll.mdb
+/Users/jp20151/Projects/Tokamak/TokamakTests/bin/Debug/FParsecCS.dll
+/Users/jp20151/Projects/Tokamak/TokamakTests/bin/Debug/FParsec.dll
+/Users/jp20151/Projects/Tokamak/TokamakTests/bin/Debug/TokamakTests.dll.mdb
+/Users/jp20151/Projects/Tokamak/TokamakTests/bin/Debug/TokamakTests.dll
+/Users/jp20151/Projects/Tokamak/TokamakTests/obj/Debug/TokamakTests.dll
+/Users/jp20151/Projects/Tokamak/TokamakTests/obj/Debug/TokamakTests.dll.mdb

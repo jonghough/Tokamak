@@ -1,0 +1,7 @@
+/Users/jp20151/Projects/Tokamak/Tokamak/obj/Debug/.NETFramework,Version=v4.5.1.AssemblyAttribute.fs
+/Users/jp20151/Projects/Tokamak/Tokamak/bin/Debug/Tokamak.dll.mdb
+/Users/jp20151/Projects/Tokamak/Tokamak/bin/Debug/Tokamak.dll
+/Users/jp20151/Projects/Tokamak/Tokamak/obj/Debug/Tokamak.dll
+/Users/jp20151/Projects/Tokamak/Tokamak/obj/Debug/Tokamak.dll.mdb
+/Users/jp20151/Projects/Tokamak/Tokamak/bin/Debug/FParsec.dll
+/Users/jp20151/Projects/Tokamak/Tokamak/bin/Debug/FParsecCS.dll
