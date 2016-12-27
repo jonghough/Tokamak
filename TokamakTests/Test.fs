@@ -1,7 +1,7 @@
 ﻿namespace TokamakTests
 open System
 open NUnit.Framework
-open Tokamak.Tokamak
+open Tokamak.Core
 
 
 [<TestFixture>]
@@ -108,7 +108,6 @@ type TokamakTest() =
         let comp = new Compiler()
         let exp = comp.compile(script1)
         let myReactor = new LiteralConfinementUnit(exp)
-        Console.WriteLine("DATA  "+myReactor.R)
         Assert.IsTrue(myReactor.R = "hello, world!")
 
     [<Test>]
@@ -232,3 +231,35 @@ type TokamakTest() =
        
         let myReactor = new IntegerConfinementUnit(exp)
         Assert.IsTrue(myReactor.R = 100L)
+
+    
+    [<Test>]
+    member x.TestCase13() =
+        let script1 = """
+            function iseven(n) (n%2) == 0 end
+
+arr = 0$100
+
+for i in 0$100 do
+  arr[i] = iseven(i)
+end
+
+arr
+           
+        """
+        let comp = new Compiler()
+        let exp = comp.compile(script1)
+
+       
+        let myReactor = new ArrayConfinementUnit(exp)
+        let mutable ctr = 0
+        List.iter (fun e -> 
+                        let r = comp.EvaluateExpression e
+                        let bcu = new BoolConfinementUnit(r)
+                        if 0 =  ctr % 2 then
+                            Assert.IsTrue(bcu.R = true)
+                        else 
+                            Assert.IsTrue(bcu.R = false)
+                        ctr <- ctr + 1) myReactor.R
+
+        

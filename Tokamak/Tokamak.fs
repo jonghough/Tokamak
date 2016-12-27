@@ -1,5 +1,5 @@
 ﻿namespace Tokamak
-module Tokamak = 
+module Core = 
     open FParsec
     open System
     
@@ -538,15 +538,15 @@ module Tokamak =
         member this.name : string = name
         member this.value : Expression = Expression.DT value
 
-    type Context(variables : Dictionary<string, Expression>, functions : Dictionary<string, FunctionBody>) =
+    type internal Context(variables : Dictionary<string, Expression>, functions : Dictionary<string, FunctionBody>) =
         let mutable parent : Context option = None
-        member this.variables = variables
-        member this.functions = functions
+        member internal this.variables = variables
+        member internal this.functions = functions
 
-        member this.SetParent(cxt) = parent <- Some cxt
+        member internal this.SetParent(cxt) = parent <- Some cxt
      
     
-        member this.UpdateVariable(varname, value : Expression) =
+        member internal this.UpdateVariable(varname, value : Expression) =
             this.variables.[varname] <- value
             match parent with
             | None -> ()
@@ -555,7 +555,7 @@ module Tokamak =
                     p.UpdateVariable(varname, value)
               
 
-    let CreateContext (context:Context) =
+    let internal CreateContext (context:Context) =
             let newcxt = Context(new Dictionary<string,Expression>(), new Dictionary<string,FunctionBody>())
             for kvp in context.variables do
                 newcxt.variables.Add(kvp.Key, kvp.Value)
@@ -564,7 +564,7 @@ module Tokamak =
             newcxt.SetParent (context)
             newcxt
 
-    let toMap (dictionary : Dictionary<string,_>) = 
+    let internal toMap (dictionary : Dictionary<string,_>) = 
             (dictionary :> seq<_>)
             |> Seq.map (|KeyValue|)
             |> Map.ofSeq
@@ -1267,7 +1267,7 @@ module Tokamak =
                 DataType.Bool (b1 && b2)
             | _ -> BinaryExpError "Binary operation fail. Wrong data types. Logical AND is not applicable with the given datatypes."
    
-
+        
         and HandleOrWithDataTypes (cxt, dt1 , dt2) : DataType =
             match(dt1,dt2) with
             | (DataType.Bool b1),( DataType.Bool b2) ->
@@ -1341,9 +1341,9 @@ module Tokamak =
             exp
 
         
-        member this.mainContext = Context(new Dictionary<string,Expression>(), new Dictionary<string,FunctionBody>())
+        member internal this.mainContext = Context(new Dictionary<string,Expression>(), new Dictionary<string,FunctionBody>())
 
-        member this.parse code =
+        member this.Parse code =
             System.Diagnostics.Debug.WriteLine("BEGIN PARSING")
             match runParserOnString parseBlock UserState.Default "Tokamak reaction stream" code  with
             | Success(result,_,_) -> 
@@ -1355,19 +1355,27 @@ module Tokamak =
 
 
         member this.compile (text : string) : Expression =
-            let result = BlockMap this.mainContext (this.parse text)
+            let result = BlockMap this.mainContext (this.Parse text)
             PrintFinalExpression result
             
 
         member this.compileWithArgs(text : string, [<ParamArray>] arr : ExternalVariable array) : Expression =
             Array.iter (fun (item : ExternalVariable) -> this.mainContext.UpdateVariable(item.name, item.value)) arr
-            let result = BlockMap this.mainContext (this.parse text)
+            let result = BlockMap this.mainContext (this.Parse text)
             PrintFinalExpression result
 
-        member this.EjectCore text = new ReactorCore(this.parse text)
+        member this.EjectCore text = new ReactorCore(this.Parse text)
 
         member this.IgniteCore (reactorCore : ReactorCore) =
             BlockMap this.mainContext reactorCore.block
+
+        member this.EvaluateExpression(exp : Expression) =
+            let block = Block (StatementList([Statement.Exp exp]))
+            BlockMap this.mainContext block
+
          
         member this.AddExternalCall(idName, action) =
             externalCalls.[idName] <- action
+
+      
+
