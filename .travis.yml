@@ -1,4 +1,4 @@
-language: csharp
+language: fsharp
 solution: Tokamak.sln
 
 mono:
