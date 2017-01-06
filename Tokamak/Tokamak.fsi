@@ -74,7 +74,7 @@ namespace Tokamak
         ///////////////////////////////////////////////////////////////////
         ///                                                             ///
         ///               -- Compiler. Fusion Reactor --                /// after several minutes. Previously 
-        ///                                                             /// microfissures were found by the
+        ///                                                             ///microfissures were found by the
         /////////////////////////////////////////////////////////////////// leaking plasma into the outer
         type Compiler =                 /// chamber. On realization, site XB302 was evacuated, and emergency
             new : unit -> Compiler      /// protocol E0302 was initiated. The uncontained reaction shot 

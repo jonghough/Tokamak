@@ -262,4 +262,22 @@ arr
                             Assert.IsTrue(bcu.R = false)
                         ctr <- ctr + 1) myReactor.R
 
+
+    [<Test>]
+    member x.TestCase14() =
+        let mutable counter = 0
+        let comp = new Compiler()
+        comp.AddExternalCall("myAction", new Action(fun _ -> counter <- counter + 1))
+        let script1 = """
+            a = 0$10
+            for i in a do
+                {myAction}
+            end
+           
+        """
+        let exp = comp.compile(script1)
+
+        Assert.AreSame(counter, 11)
+       
+       
         
