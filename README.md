@@ -73,3 +73,19 @@ end
 
 arr
 ```
+
+### if-elseif-else control
+```
+a = 0$100
+m0 = 0
+m1 = 0
+m2 = 0
+for i in a do
+  if 0 = i%3 then
+    m0 = m0 + 1
+  elseif 1 = i%3 then
+    m1 = m1 + 1
+  else m2 = m2 + 1
+  end
+end
+```
