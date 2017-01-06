@@ -252,22 +252,22 @@ arr
 
        
         let myReactor = new ArrayConfinementUnit(exp)
-        let mutable ctr = 0
+        let ctr = ref 0
         List.iter (fun e -> 
                         let r = comp.EvaluateExpression e
                         let bcu = new BoolConfinementUnit(r)
-                        if 0 =  ctr % 2 then
+                        if 0 =  !ctr % 2 then
                             Assert.IsTrue(bcu.R = true)
                         else 
                             Assert.IsTrue(bcu.R = false)
-                        ctr <- ctr + 1) myReactor.R
+                        ctr := !ctr + 1) myReactor.R
 
 
     [<Test>]
     member x.TestCase14() =
-        let mutable counter = 0
+        let counter = ref 0
         let comp = new Compiler()
-        comp.AddExternalCall("myAction", new Action(fun _ -> counter <- counter + 1))
+        comp.AddExternalCall("myAction", new Action(fun _ -> counter := !counter + 1))
         let script1 = """
             a = 0$10
             for i in a do
@@ -277,7 +277,7 @@ arr
         """
         let exp = comp.compile(script1)
 
-        Assert.AreSame(counter, 11)
+        Assert.IsTrue(11=(!counter))
        
        
         
