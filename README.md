@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/jonghough/Tokamak.svg?branch=master)](https://travis-ci.org/jonghough/Tokamak)
 # Tokamak
 Advanced Fusion Reactor
 
