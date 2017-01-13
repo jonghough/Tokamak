@@ -1,5 +1,5 @@
-language: fsharp
+language: csharp
 solution: Tokamak.sln
 
 mono:
-  - latest
+   - 3.12.0
