@@ -278,6 +278,30 @@ arr
         let exp = comp.compile(script1)
 
         Assert.IsTrue(11=(!counter))
+
+    [<Test>]
+    member x.TestCase15() =
+        let comp = new Compiler()
+
+        let script1 = """
+            a = 0$100
+            m0 = 0
+            m1 = 0
+            m2 = 0
+            for i in a do
+                if 0 == i%3 then
+                    m0 = m0 + 1
+                elif 1 == i%3 then
+                    m1 = m1 + 1
+                else m2 = m2 + 1
+                end
+            end
+
+            m2
+        """
+        let exp = comp.compile(script1)
+        let myReactor = new IntegerConfinementUnit(exp)
+        Assert.IsTrue(myReactor.R = 33L)
        
        
         

@@ -308,8 +308,8 @@ module Core =
     let ParseFalse = pstring FALSE |>> fun _ -> DataType.Bool false
     let ParseBoolean = ParseTrue <|> ParseFalse
 
-
-    let ParseX : Parser<string,UserState> = (many1Satisfy isLetter) >>= fun (a : string)  stream ->
+ 
+    let ParseX : Parser<string,UserState> = many1Satisfy2 isLetter (fun c -> isLetter c || isDigit c)  >>= fun (a : string)  stream ->
                 
                 let IdentifierError s = failwith (s + " Fusion reaction has warped the confinement field."+ 
                                                     "Structural stress has reached 1200%. Uncontrolled reaction is inevitable.")
