@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{8B83C462-1DD3-44D8-86AA-B64DA3034B6D}|Unit Tests">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TokamakAndroidSample/MainActivity.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TokamakTests/Test.fs">
     <Files>
-      <File FileName="Tokamak/Tokamak.fs" Line="1378" Column="31" />
-      <File FileName="TokamakTests/Test.fs" Line="283" Column="9" />
+      <File FileName="Tokamak/Tokamak.fs" Line="336" Column="49" />
+      <File FileName="TokamakTests/Test.fs" Line="329" Column="57" />
       <File FileName="Tokamak/Tokamak.fsi" Line="91" Column="46" />
       <File FileName="Tokamak/packages.config" Line="1" Column="1" />
       <File FileName="Tokamak/AssemblyInfo.fs" Line="1" Column="1" />
-      <File FileName="TokamakAndroidSample/MainActivity.cs" Line="25" Column="3" />
+      <File FileName="TokamakAndroidSample/MainActivity.cs" Line="47" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

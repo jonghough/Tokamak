@@ -85,6 +85,7 @@ namespace Tokamak
             member IgniteCore : ReactorCore -> Expression
             member EvaluateExpression : Expression -> Expression
             member AddExternalCall : string * System.Action -> unit
+            member GetGlobalVariableValues : Unit -> System.Collections.Generic.Dictionary<string, Expression>
                                         /// impossible to be recovered from the debris.  
                                         ///
                                         /// Gordan Freeman.

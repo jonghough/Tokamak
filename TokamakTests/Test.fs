@@ -302,6 +302,31 @@ arr
         let exp = comp.compile(script1)
         let myReactor = new IntegerConfinementUnit(exp)
         Assert.IsTrue(myReactor.R = 33L)
-       
+
+
+    [<Test>]
+    member x.TestCase16() =
+        let script1 = """
+
+                    name = "user_name"
+                    ip = "127.0.0.1"
+                    port = 22
+                    """
+        let comp = new Compiler();
+        let exp = comp.compile(script1);
+      //  let myReactor = new Core.IntegerConfinementUnit(exp);
+        
+        let nameExp = comp.GetGlobalVariableValues().["name"]
+        let myReactor1 = new LiteralConfinementUnit(nameExp)
+        Assert.IsTrue(myReactor1.R = "user_name")
+
+        let ipExp = comp.GetGlobalVariableValues().["ip"]
+        let myReactor2 = new LiteralConfinementUnit(ipExp)
+        Console.WriteLine("IP is "+string(myReactor2.R))
+        Assert.IsTrue(myReactor2.R = "127.0.0.1")
+
+        let portExp = comp.GetGlobalVariableValues().["port"]
+        let myReactor3 = new IntegerConfinementUnit(portExp)
+        Assert.IsTrue(myReactor3.R = 22L)
        
         

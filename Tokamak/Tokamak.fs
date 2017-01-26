@@ -538,7 +538,7 @@ module Core =
         member this.name : string = name
         member this.value : Expression = Expression.DT value
 
-    type internal Context(variables : Dictionary<string, Expression>, functions : Dictionary<string, FunctionBody>) =
+    type  Context(variables : Dictionary<string, Expression>, functions : Dictionary<string, FunctionBody>) =
         let mutable parent : Context option = None
         member internal this.variables = variables
         member internal this.functions = functions
@@ -548,11 +548,18 @@ module Core =
     
         member internal this.UpdateVariable(varname, value : Expression) =
             this.variables.[varname] <- value
+            this.getVariables() |> ignore
             match parent with
-            | None -> ()
+            | None -> 
+                ()
             | Some p -> 
                 if p.variables.ContainsKey(varname) then
                     p.UpdateVariable(varname, value)
+
+        member internal this.getVariables() : Dictionary<string, Expression> = 
+            this.variables
+
+        
               
 
     let internal CreateContext (context:Context) =
@@ -568,7 +575,8 @@ module Core =
             (dictionary :> seq<_>)
             |> Seq.map (|KeyValue|)
             |> Map.ofSeq
-         
+      
+    
 
     type PlasmaConfinementUnit<'T> =
         abstract member Extract: unit -> 'T
@@ -1341,7 +1349,7 @@ module Core =
             exp
 
         
-        member internal this.mainContext = Context(new Dictionary<string,Expression>(), new Dictionary<string,FunctionBody>())
+        let mutable mainContext = Context(new Dictionary<string,Expression>(), new Dictionary<string,FunctionBody>())
 
         member this.Parse code =
             System.Diagnostics.Debug.WriteLine("BEGIN PARSING")
@@ -1355,27 +1363,29 @@ module Core =
 
 
         member this.compile (text : string) : Expression =
-            let result = BlockMap this.mainContext (this.Parse text)
+            let result = BlockMap mainContext (this.Parse text)
             PrintFinalExpression result
             
 
         member this.compileWithArgs(text : string, [<ParamArray>] arr : ExternalVariable array) : Expression =
-            Array.iter (fun (item : ExternalVariable) -> this.mainContext.UpdateVariable(item.name, item.value)) arr
-            let result = BlockMap this.mainContext (this.Parse text)
+            Array.iter (fun (item : ExternalVariable) -> mainContext.UpdateVariable(item.name, item.value)) arr
+            let result = BlockMap mainContext (this.Parse text)
             PrintFinalExpression result
 
         member this.EjectCore text = new ReactorCore(this.Parse text)
 
         member this.IgniteCore (reactorCore : ReactorCore) =
-            BlockMap this.mainContext reactorCore.block
+            BlockMap mainContext reactorCore.block
 
         member this.EvaluateExpression(exp : Expression) =
             let block = Block (StatementList([Statement.Exp exp]))
-            BlockMap this.mainContext block
+            BlockMap mainContext block
 
          
         member this.AddExternalCall(idName, action) =
             externalCalls.[idName] <- action
+
+        member this.GetGlobalVariableValues() = mainContext.getVariables()
 
       
 
